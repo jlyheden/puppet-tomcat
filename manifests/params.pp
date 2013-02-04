@@ -39,7 +39,7 @@ class tomcat::params {
       $service_hasstatus = true
     }
     default: {
-      fail("Unsupported distribution ${::lsbdistcode}")
+      fail("Unsupported distribution ${::lsbdistcodename}")
     }
   }
 }

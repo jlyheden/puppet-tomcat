@@ -1,0 +1,36 @@
+{
+  "name": "stanlee-tomcat",
+  "author": "Johan Lyheden",
+  "description": "",
+  "license": "",
+  "project_page": "https://github.com/stanlee/puppet-tomcat",
+  "source": "https://github.com/stanlee/puppet-tomcat",
+  "summary": "",
+  "version": "0.0.1",
+  "checksums": {
+    "Modulefile": "6138aa32cf215ad8d0e4b063b7ef888f",
+    "README.markdown": "c9ed4364831f874f082c899719e384ce",
+    "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+    "files/6/10_server.xml": "82b7b598202de9d9213c94d2f443102a",
+    "files/6/30_server.xml": "111df79a34a1cb49b93e1ff48016e10d",
+    "manifests/connector.pp": "42e9df8a30c6b9b4e7578a94e2ceaab8",
+    "manifests/debian.pp": "2c30b81935b7571262a0583163bcdb95",
+    "manifests/init.pp": "cdd031417e9ab7add8e4d843a90b3032",
+    "manifests/params.pp": "83ad802e42ddb9c87d9e0646bb399cf8",
+    "manifests/role.pp": "92fe46369c31448473ea4a08291f7cfb",
+    "manifests/user.pp": "7c568666003a63ea9c8ea0cdfecab861",
+    "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+    "spec/spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
+    "tests/init.pp": "551af72a1a5aca74ceae76cb7a238044"
+  },
+  "dependencies": [
+    {
+      "name": "ripienaar/concat",
+      "version_requirement": "\u003d\u003d0.2.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": "\u003d\u003d3.2.0"
+    }
+  ]
+}

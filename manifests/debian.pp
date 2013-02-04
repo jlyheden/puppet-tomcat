@@ -1,6 +1,6 @@
 # == Class: tomcat::debian
 #
-# Manages specifics for Tomcat in Debian/Ubuntu
+# Manage specifics for Tomcat in Debian/Ubuntu
 #
 # === Parameters:
 #
@@ -9,8 +9,11 @@
 # include tomcat::debian
 #
 class tomcat::debian {
+
   $jvm_parameters = $tomcat::jvm_parameters_real
   $parameter_line = inline_template('JAVA_OPTS="<%= jvm_parameters.join(" ") %>"')
+
+  # Set startup JVM parameters in default file
   file_line { 'debian_default_jvm_options':
     ensure  => present,
     line    => $parameter_line,
@@ -18,4 +21,12 @@ class tomcat::debian {
     require => Package['tomcat/packages'],
     notify  => Service['tomcat/service']
   }
+
+  # Ensure that tomcat user can write to it's own home directory
+  file { $tomcat::tomcat_home_folder:
+    ensure  => directory,
+    owner   => $tomcat::tomcat_user,
+    require => Package['tomcat/packages']
+  }
+
 }

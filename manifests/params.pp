@@ -2,6 +2,10 @@ class tomcat::params {
   case $::lsbdistcodename {
     'lucid': {
       $allowed_versions = [ '6', '7' ]
+      $home_folder = {
+        '6' => '/usr/share/tomcat6',
+        '7' => '/usr/share/tomcat7'
+      }
       $jvm_params_file = {
         '6' => '/etc/default/tomcat6',
         '7' => '/etc/default/tomcat7'

@@ -86,6 +86,7 @@ class tomcat (  $version = 'UNDEF',
   $tomcat_package_real = $tomcat::params::package[$version_real]
   $tomcat_server_xml = "${tomcat_config_dir_real}/${tomcat::params::server_xml}"
   $tomcat_users_file = "${tomcat_config_dir_real}/${tomcat::params::users_file}"
+  $tomcat_home_folder = $tomcat::params::home_folder[$version_real]
 
   if $server_xml_source_real == undef {
     concat { $tomcat_server_xml:

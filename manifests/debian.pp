@@ -1,10 +1,10 @@
-# == Class: tomcat::debian
+# = Class: tomcat::debian
 #
 # Manage specifics for Tomcat in Debian/Ubuntu
 #
-# === Parameters:
+# == Parameters:
 #
-# === Sample usage:
+# == Sample usage:
 #
 # include tomcat::debian
 #
@@ -22,7 +22,7 @@ class tomcat::debian {
     notify  => Service['tomcat/service']
   }
 
-  # Ensure that tomcat user can write to it's own home directory
+  # Ensure that tomcat user can write to its own home directory
   file { $tomcat::tomcat_home_folder:
     ensure  => directory,
     owner   => $tomcat::tomcat_user,

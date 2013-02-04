@@ -3,7 +3,7 @@ What is it?
 
 A Puppet module that manages Tomcat
 
-Minimally tested, probably broken for Tomcat 7. Fork and fix if this is important to you.
+Minimally tested on Lucid with stock Tomcat 6 packages and Tomcat 7 pinned from precise
 
 Dependencies:
 -------------

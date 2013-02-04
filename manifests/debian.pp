@@ -1,3 +1,13 @@
+# == Class: tomcat::debian
+#
+# Manages specifics for Tomcat in Debian/Ubuntu
+#
+# === Parameters:
+#
+# === Sample usage:
+#
+# include tomcat::debian
+#
 class tomcat::debian {
   $jvm_parameters = $tomcat::jvm_parameters_real
   $parameter_line = inline_template('JAVA_OPTS="<%= jvm_parameters.join(" ") %>"')

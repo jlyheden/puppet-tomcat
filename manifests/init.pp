@@ -66,16 +66,6 @@ class tomcat (  $version = 'UNDEF',
     default => $server_xml_source
   }
 
-  case $::operatingsystem {
-    ubuntu: {
-      include tomcat::debian
-    }
-    debian: {
-      include tomcat::debian
-    }
-    default: {}
-  }
-
   validate_re($version_real,$tomcat::params::allowed_versions)
   validate_array($jvm_parameters_real)
   validate_bool($enable_real)
@@ -87,6 +77,16 @@ class tomcat (  $version = 'UNDEF',
   $tomcat_server_xml = "${tomcat_config_dir_real}/${tomcat::params::server_xml}"
   $tomcat_users_file = "${tomcat_config_dir_real}/${tomcat::params::users_file}"
   $tomcat_home_folder = $tomcat::params::home_folder[$version_real]
+
+  case $::operatingsystem {
+    ubuntu: {
+      include tomcat::debian
+    }
+    debian: {
+      include tomcat::debian
+    }
+    default: {}
+  }
 
   if $server_xml_source_real == undef {
     concat { $tomcat_server_xml:
@@ -149,7 +149,8 @@ class tomcat (  $version = 'UNDEF',
 
   package { 'tomcat/packages':
     ensure  => $autoupgrade_real,
-    name    => $tomcat::params::package[$version_real]
+    name    => $tomcat::params::package[$version_real],
+    before  => Service['tomcat/service']
   }
 
   service { 'tomcat/service':

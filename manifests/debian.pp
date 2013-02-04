@@ -25,7 +25,7 @@ class tomcat::debian {
   # Ensure that tomcat user can write to its own home directory
   file { $tomcat::tomcat_home_folder:
     ensure  => directory,
-    owner   => $tomcat::tomcat_user,
+    owner   => $tomcat::tomcat_user_real,
     require => Package['tomcat/packages']
   }
 

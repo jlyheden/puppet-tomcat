@@ -33,7 +33,7 @@ tomcat::connector { '8080_connector':
     'connectionTimeout' => 20000,
   }
 }
-tomcat::listener { 'org.apache.catalina.some.custom.listener' }
+tomcat::listener { 'org.apache.catalina.some.custom.listener': }
 </pre>
 
 Some convenience classes exists as well to be included in addition to the base tomcat class

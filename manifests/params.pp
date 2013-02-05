@@ -28,6 +28,7 @@ class tomcat::params {
         '6' => [ 'tomcat6', 'tomcat6-common', 'libtomcat6-java' ],
         '7' => [ 'tomcat7', 'tomcat7-common', 'libtomcat7-java' ],
       }
+      $package_apr = 'libtcnative-1'
       $package_extra = {
         '6' => [ 'tomcat6-admin', 'tomcat6-docs', 'tomcat6-user' ],
         '7' => [ 'tomcat7-admin', 'tomcat7-docs', 'tomcat7-user' ],

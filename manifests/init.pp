@@ -102,6 +102,11 @@ class tomcat (  $version = 'UNDEF',
       source  => "puppet:///modules/tomcat/${version_real}/10_server.xml",
       order   => 10
     }
+    concat::fragment { '15_server_xml':
+      target  => $tomcat_server_xml,
+      source  => "puppet:///modules/tomcat/${version_real}/15_server.xml",
+      order   => 15
+    }
     concat::fragment { '30_server_xml':
       target  => $tomcat_server_xml,
       source  => "puppet:///modules/tomcat/${version_real}/30_server.xml",

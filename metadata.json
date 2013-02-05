@@ -9,7 +9,7 @@
   "version": "0.0.1",
   "checksums": {
     "Modulefile": "6138aa32cf215ad8d0e4b063b7ef888f",
-    "README.markdown": "d2fadd5381ff393bd5b6de3df55f60ca",
+    "README.markdown": "aa05f942786cd32986afd7dd0da7afc9",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files/6/10_server.xml": "f43432175d8fc49c552dc3a8dce4e912",
     "files/6/15_server.xml": "4b1eadb8b1dd347c55221ca8ebed8b37",
@@ -17,7 +17,7 @@
     "files/7/10_server.xml": "f43432175d8fc49c552dc3a8dce4e912",
     "files/7/15_server.xml": "4b1eadb8b1dd347c55221ca8ebed8b37",
     "files/7/30_server.xml": "284d8aa4e4370158a2d4c9f044627ce0",
-    "manifests/connector.pp": "42e9df8a30c6b9b4e7578a94e2ceaab8",
+    "manifests/connector.pp": "b64dcbe99083325edcb9aabdfb2b8aac",
     "manifests/debian.pp": "73970e82d7c71b8bc3195bc84d30bbed",
     "manifests/init.pp": "923d6f1972fc5280360f72db0cd9107a",
     "manifests/listener.pp": "5acb3901575e9ec553485c1f3e7aebfc",

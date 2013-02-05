@@ -20,7 +20,7 @@
 #
 define tomcat::connector ( $parameters ) {
   validate_hash($parameters)
-  $connector_content = inline_template('  <Connector <%- parameters.sort_by { |k,v| k}.each { |v| -%><%= v[0] %>="<%= v[1] %>" <%- } -%>/>')
+  $connector_content = inline_template("  <Connector <%- parameters.sort_by { |k,v| k}.each { |v| -%><%= v[0] %>=\"<%= v[1] %>\" <%- } -%>/>\n")
   concat::fragment { "20_connector_${name}":
     target  => $tomcat::tomcat_server_xml,
     content => $connector_content,

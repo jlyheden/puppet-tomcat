@@ -8,8 +8,8 @@ Minimally tested on Lucid with stock Tomcat 6 packages and Tomcat 7 pinned from 
 Dependencies:
 -------------
 
-puppet-concat: https://github.com/ripienaar/puppet-concat
-puppet-stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
+* puppet-concat: https://github.com/ripienaar/puppet-concat
+* puppet-stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
 
 Usage:
 ------
@@ -33,6 +33,13 @@ tomcat::connector { '8080_connector':
     'connectionTimeout' => 20000,
   }
 }
+tomcat::listener { 'org.apache.catalina.some.custom.listener' }
+</pre>
+
+Some convenience classes exists as well to be included in addition to the base tomcat class
+<pre>
+include tomcat::profile::default
+include tomcat::profile::apr
 </pre>
 
 If you prefer to inject a static server.xml config to Tomcat you can do that as well.

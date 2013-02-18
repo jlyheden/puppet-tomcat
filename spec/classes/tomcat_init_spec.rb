@@ -1,5 +1,3 @@
-# spec/classes/init_spec.rb
-
 require 'spec_helper'
 
 describe 'tomcat' do

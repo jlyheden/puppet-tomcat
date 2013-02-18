@@ -10,11 +10,11 @@
 #
 # == Sample usage:
 #
-# tomcat::connector { '8080_connector':
+# tomcat::connector { '8090_connector':
 #   parameters => {
-#     'port'              => 8080,
+#     'port'              => 8090,
 #     'protocol'          => 'HTTP/1.1',
-#     'connectionTimeout' => 20000,
+#     'connectionTimeout' => 40000,
 #   }
 # }
 #

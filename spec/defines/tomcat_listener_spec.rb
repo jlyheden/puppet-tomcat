@@ -8,8 +8,9 @@ describe 'tomcat::listener' do
     :concat_basedir   => '/var/lib/puppet/concat'
   } }
 
-  let (:pre_condition) do
-    'class tomcat { $tomcat_server_xml = "/etc/whatever" }'
+  let (:pre_condition) do [
+    'class {"tomcat": }',
+  ]
   end
 
   context 'without parameters' do

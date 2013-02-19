@@ -28,10 +28,10 @@ class tomcat::profile::apr ( $sslengine = 'UNDEF' ) {
   }
 
   tomcat::listener { 'org.apache.catalina.core.AprLifecycleListener':
-    parameters  => {
+    parameters    => {
       'SSLEngine' => $sslengine_real
     },
-    require => Package['tomcat/packages/apr']
+    require       => Package['tomcat/packages/apr']
   }
 
 }

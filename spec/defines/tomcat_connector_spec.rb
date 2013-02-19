@@ -8,6 +8,10 @@ describe 'tomcat::connector' do
     :concat_basedir   => '/var/lib/puppet/concat'
   } }
 
+  let (:pre_condition) do
+    'class tomcat { $tomcat_server_xml = "/etc/whatever" }'
+  end
+
   context 'with parameters' do
     let (:name) { '8080' }
     let (:title) { '8080' }

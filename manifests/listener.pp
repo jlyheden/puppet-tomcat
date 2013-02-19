@@ -18,8 +18,8 @@
 define tomcat::listener ( $parameters = {} ) {
   validate_hash($parameters)
   if size($name) == 0 {
-    fail("Namevar must not be empty.")
-  } 
+    fail('Namevar must not be empty.')
+  }
   concat::fragment { "12_listener_${name}":
     target  => $tomcat::tomcat_server_xml,
     content => template('tomcat/listener.erb'),

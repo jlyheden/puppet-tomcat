@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe 'tomcat' do
 
-  describe 'default_include_lucid' do
+  context 'ubuntu lucid with default settings' do
 
     let (:facts) { {
       :lsbdistcodename  => 'lucid',
       :operatingsystem  => 'Ubuntu',
       :concat_basedir   => '/var/lib/puppet/concat'
     } }
-   
+
     # package 
     it do should contain_package('tomcat/packages').with(
       'ensure'  => 'present',
@@ -51,7 +51,51 @@ describe 'tomcat' do
       'require' => 'Package[tomcat/packages]',
       'notify'  => 'Service[tomcat/service]'
     ) end
+  end
 
+  context 'ubuntu lucid tomcat 7 with disabled service and autoupgrade' do
+    let (:facts) { {
+      :lsbdistcodename  => 'lucid',
+      :operatingsystem  => 'Ubuntu',
+      :concat_basedir   => '/var/lib/puppet/concat'
+    } }
+    let (:params) { {
+      :version        => '7',
+      :autoupgrade    => true,
+      :service_enable => false,
+      :service_status => 'unmanaged'
+    } }
+
+    # package 
+    it do should contain_package('tomcat/packages').with(
+      'ensure'  => 'latest',
+      'name'    => [ 'tomcat7', 'tomcat7-common', 'libtomcat7-java' ],
+      'before'  => 'Service[tomcat/service]'
+    ) end 
+
+    # service
+    it do should contain_service('tomcat/service').with(
+      'ensure'  => nil,
+      'enable'  => false,
+      'name'    => 'tomcat7',
+      'require' => 'Package[tomcat/packages]'
+    ) end
+  end
+
+  context 'ubuntu lucid tomcat version 100' do
+    let (:facts) { {
+      :lsbdistcodename  => 'lucid',
+      :operatingsystem  => 'Ubuntu',
+      :concat_basedir   => '/var/lib/puppet/concat'
+    } }
+    let (:params) { {
+      :version        => '100',
+    } }
+    it do
+      expect {
+        should contain_class('tomcat')
+      }.to raise_error(Puppet::Error,/"100" does not match \["6", "7"\]/)
+    end
   end
 
 end

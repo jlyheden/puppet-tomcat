@@ -1,3 +1,13 @@
+# = Class: tomcat::params
+#
+# Settings class
+#
+# == Parameters:
+#
+# == Sample Usage:
+#
+# include tomcat::params
+#
 class tomcat::params {
   case $::lsbdistcodename {
     'lucid': {

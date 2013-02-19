@@ -17,10 +17,12 @@
 #
 define tomcat::listener ( $parameters = {} ) {
   validate_hash($parameters)
-  $connector_content = inline_template("  <Listener className=\"<%= name %>\" <%- parameters.sort_by { |k,v| k}.each { |v| -%><%= v[0] %>=\"<%= v[1] %>\" <%- } -%>/>\n")
+  if size($name) == 0 {
+    fail("Namevar must not be empty.")
+  } 
   concat::fragment { "12_listener_${name}":
     target  => $tomcat::tomcat_server_xml,
-    content => $connector_content,
+    content => template('tomcat/listener.erb'),
     order   => 12
   }
 }

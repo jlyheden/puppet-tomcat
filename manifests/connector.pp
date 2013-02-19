@@ -5,7 +5,8 @@
 # == Parameters:
 #
 # [*parameters*]
-#   Hash of parameters to pass to connector. See http://tomcat.apache.org/tomcat-6.0-doc/config/http.html
+#   Hash of parameters to pass to connector.
+#   See http://tomcat.apache.org/tomcat-6.0-doc/config/http.html
 #   or http://tomcat.apache.org/tomcat-7.0-doc/config/http.html
 #
 # == Sample usage:
@@ -20,10 +21,9 @@
 #
 define tomcat::connector ( $parameters ) {
   validate_hash($parameters)
-  $connector_content = inline_template("  <Connector <%- parameters.sort_by { |k,v| k}.each { |v| -%><%= v[0] %>=\"<%= v[1] %>\" <%- } -%>/>\n")
   concat::fragment { "20_connector_${name}":
     target  => $tomcat::tomcat_server_xml,
-    content => $connector_content,
+    content => template('tomcat/connector.erb'),
     order   => 20
   }
 }

@@ -16,10 +16,10 @@
 # [*server_xml_source*]
 #   Optional path to server.xml
 #
-# [*enable*]
+# [*service_enable*]
 #   Boolean if Tomcat service should be enabled on boot
 #
-# [*service*]
+# [*service_status*]
 #   Ensure setting for Tomcat service.
 #
 # == Requires: see Modulefile
@@ -31,22 +31,26 @@
 #     jvm_parameters => [ '-Xmx64m', '-Xms32m' ],
 #   }
 #
-class tomcat (  $version = 'UNDEF',
-                $autoupgrade = 'UNDEF',
-                $jvm_parameters = 'UNDEF',
-                $server_xml_source = 'UNDEF',
-                $enable = 'UNDEF',
-                $service = 'UNDEF' ) {
+class tomcat (
+  $version            = 'UNDEF',
+  $autoupgrade        = 'UNDEF',
+  $jvm_parameters     = 'UNDEF',
+  $server_xml_source  = 'UNDEF',
+  $service_enable     = 'UNDEF',
+  $service_status     = 'UNDEF'
+) {
 
   include tomcat::params
 
-  $service_real = $service ? {
-    'UNDEF' => running,
-    default => $service
+  $service_status_real = $service_status ? {
+    'UNDEF'               => running,
+    /^(running|stopped)$/ => $service_status,
+    'unmanaged'           => undef,
+    default               => fail("Invalid parameter value ${service_status}. Valid values: running, stopped, unmanaged")
   }
-  $enable_real = $enable ? {
+  $service_enable_real = $service_enable ? {
     'UNDEF' => true,
-    default => $enable
+    default => $service_enable
   }
   $jvm_parameters_real = $jvm_parameters ? {
     'UNDEF' => [ '-Djava.awt.headless=true', '-Xmx128m' ],
@@ -68,7 +72,7 @@ class tomcat (  $version = 'UNDEF',
 
   validate_re($version_real,$tomcat::params::allowed_versions)
   validate_array($jvm_parameters_real)
-  validate_bool($enable_real)
+  validate_bool($service_enable_real)
 
   $tomcat_config_dir_real = $tomcat::params::config_dir[$version_real]
   $tomcat_user_real = $tomcat::params::user[$version_real]
@@ -159,9 +163,9 @@ class tomcat (  $version = 'UNDEF',
   }
 
   service { 'tomcat/service':
+    ensure    => $service_status_real,
     name      => $tomcat::params::service[$version_real],
-    ensure    => $service_real,
-    enable    => $enable_real,
+    enable    => $service_enable_real,
     hasstatus => $tomcat::params::service_hasstatus,
     require   => Package['tomcat/packages']
   }

@@ -1,0 +1,8 @@
+<!-- MANAGED BY PUPPET -->
+<Context<%- context_params_real.sort_by { |k,v| k}.each { |k,v| -%> <%= k %>="<%= v %>"<%- } -%>>
+<%- if not context_resources.empty?
+context_resources.each do |r|
+  r.each_pair { |k,v| -%> <<%= k %><%- v.sort_by { |kk,vv| kk }.each { |kk,vv| -%> <%= kk %>="<%= vv %>"<%- } -%>/><%- }
+end
+end -%>
+</Context>

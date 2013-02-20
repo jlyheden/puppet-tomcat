@@ -12,6 +12,7 @@ class tomcat::params {
   case $::lsbdistcodename {
     'lucid': {
       $allowed_versions = [ '6', '7' ]
+      $context_descriptor_subdir = 'Catalina/localhost'
       $home_folder = {
         '6' => '/usr/share/tomcat6',
         '7' => '/usr/share/tomcat7'

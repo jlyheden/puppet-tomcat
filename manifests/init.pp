@@ -22,6 +22,11 @@
 # [*service_status*]
 #   Ensure setting for Tomcat service.
 #
+# [*manage_contexts*]
+#   Boolean if context descriptor dir should be managed entirely by Puppet.
+#   Setting this to true will purge any context descriptor not added
+#   by Puppet.
+#
 # == Requires: see Modulefile
 #
 # == Sample Usage:
@@ -37,7 +42,8 @@ class tomcat (
   $jvm_parameters     = 'UNDEF',
   $server_xml_source  = 'UNDEF',
   $service_enable     = 'UNDEF',
-  $service_status     = 'UNDEF'
+  $service_status     = 'UNDEF',
+  $manage_contexts    = 'UNDEF',
 ) {
 
   include tomcat::params
@@ -69,12 +75,18 @@ class tomcat (
     'UNDEF' => undef,
     default => $server_xml_source
   }
+  $manage_contexts_real = $manage_contexts ? {
+    'UNDEF' => true,
+    default => $manage_contexts
+  }
 
   validate_re($version_real,$tomcat::params::allowed_versions)
   validate_array($jvm_parameters_real)
   validate_bool($service_enable_real)
+  validate_bool($manage_contexts_real)
 
   $tomcat_config_dir_real = $tomcat::params::config_dir[$version_real]
+  $tomcat_contexts_dir_real = "${tomcat_config_dir_real}/${tomcat::params::context_descriptor_subdir}"
   $tomcat_user_real = $tomcat::params::user[$version_real]
   $tomcat_group_real = $tomcat::params::group[$version_real]
   $tomcat_package_real = $tomcat::params::package[$version_real]
@@ -146,6 +158,20 @@ class tomcat (
     target  => $tomcat_users_file,
     content => "</tomcat-users>\n",
     order   => 40
+  }
+
+  if $manage_contexts_real {
+    file { 'tomcat/contexts':
+      ensure  => directory,
+      path    => $tomcat_contexts_dir_real,
+      owner   => root,
+      group   => $tomcat_group_real,
+      mode    => '0770',
+      force   => true,
+      purge   => true,
+      recurse => true,
+      require => Package['tomcat/packages']
+    }
   }
 
   file { 'tomcat/configdir':
